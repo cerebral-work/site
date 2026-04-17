@@ -42,33 +42,69 @@ import Layout from '../layouts/Layout.astro';
   <section class="mb-12">
     <h2 class="text-2xl font-semibold text-neutral-50 mb-4">Five-layer hierarchy</h2>
     <figure class="my-6">
-      <svg viewBox="0 0 600 280" class="w-full border border-neutral-800 rounded-lg bg-neutral-900 p-4">
-        <style>
-          .lr-box { fill: #0a0a0a; stroke: #10b981; stroke-width: 1.5; }
-          .lr-label { font: 600 13px ui-monospace, monospace; fill: #fafafa; }
-          .lr-meta { font: 11px ui-sans-serif, system-ui; fill: #a3a3a3; }
-          .lr-arrow { fill: none; stroke: #065f46; stroke-width: 1.5; marker-end: url(#arr); }
-        </style>
+      <svg viewBox="0 0 720 360" class="w-full border border-neutral-800 rounded-xl bg-gradient-to-br from-neutral-950 to-neutral-900 p-4" aria-labelledby="hier-title">
+        <title id="hier-title">Five-layer memory hierarchy</title>
         <defs>
-          <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker>
+          <linearGradient id="l1g" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#022c22"/><stop offset="0.5" stop-color="#064e3b"/><stop offset="1" stop-color="#022c22"/></linearGradient>
+          <linearGradient id="l2g" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#052e1e"/><stop offset="0.5" stop-color="#065f46"/><stop offset="1" stop-color="#052e1e"/></linearGradient>
+          <linearGradient id="l3g" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#064e3b"/><stop offset="0.5" stop-color="#047857"/><stop offset="1" stop-color="#064e3b"/></linearGradient>
+          <linearGradient id="l4g" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#065f46"/><stop offset="0.5" stop-color="#059669"/><stop offset="1" stop-color="#065f46"/></linearGradient>
+          <linearGradient id="l5g" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#047857"/><stop offset="0.5" stop-color="#10b981"/><stop offset="1" stop-color="#047857"/></linearGradient>
+          <filter id="softshadow" x="-10%" y="-10%" width="120%" height="140%"><feGaussianBlur in="SourceAlpha" stdDeviation="3"/><feOffset dy="2"/><feComponentTransfer><feFuncA type="linear" slope="0.4"/></feComponentTransfer><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+          <filter id="glow"><feGaussianBlur stdDeviation="2.5"/><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+          <pattern id="grid" width="24" height="24" patternUnits="userSpaceOnUse"><path d="M 24 0 L 0 0 0 24" fill="none" stroke="#0a0a0a" stroke-width="1"/></pattern>
         </defs>
-        <rect class="lr-box" x="40" y="30" width="520" height="40" rx="6" style="opacity:0.95"/>
-        <text class="lr-label" x="60" y="55">L5 · Reference</text>
-        <text class="lr-meta" x="200" y="55">pointers to external systems — Linear, Obsidian, docs</text>
-        <rect class="lr-box" x="60" y="80" width="480" height="40" rx="6" style="opacity:0.95"/>
-        <text class="lr-label" x="80" y="105">L4 · Directive</text>
-        <text class="lr-meta" x="220" y="105">rules of engagement — CLAUDE.md, feedback, preferences</text>
-        <rect class="lr-box" x="80" y="130" width="440" height="40" rx="6" style="opacity:0.95"/>
-        <text class="lr-label" x="100" y="155">L3 · Semantic</text>
-        <text class="lr-meta" x="240" y="155">stable concepts + entities, cross-session</text>
-        <rect class="lr-box" x="100" y="180" width="400" height="40" rx="6" style="opacity:0.95"/>
-        <text class="lr-label" x="120" y="205">L2 · Consolidated</text>
-        <text class="lr-meta" x="260" y="205">deduplicated observations, promoted by signal</text>
-        <rect class="lr-box" x="120" y="230" width="360" height="40" rx="6" style="opacity:0.95"/>
-        <text class="lr-label" x="140" y="255">L1 · Episodic</text>
-        <text class="lr-meta" x="270" y="255">raw transcripts, tool calls, scratch</text>
+        <rect width="720" height="360" fill="url(#grid)" opacity="0.35"/>
+        <!-- volume indicator along left edge -->
+        <text x="22" y="30" font="600 10px ui-monospace,monospace" fill="#737373">VOLUME</text>
+        <line x1="30" y1="40" x2="30" y2="340" stroke="#262626" stroke-width="1"/>
+        <text x="22" y="340" font="600 10px ui-monospace,monospace" fill="#737373">HIGH</text>
+        <text x="22" y="52" font="600 10px ui-monospace,monospace" fill="#737373">LOW</text>
+        <!-- half-life indicator along right edge -->
+        <text x="660" y="30" font="600 10px ui-monospace,monospace" fill="#737373">HALF-LIFE</text>
+        <line x1="690" y1="40" x2="690" y2="340" stroke="#262626" stroke-width="1"/>
+        <text x="672" y="52" font="600 10px ui-monospace,monospace" fill="#737373">LONG</text>
+        <text x="672" y="340" font="600 10px ui-monospace,monospace" fill="#737373">SHORT</text>
+
+        <g filter="url(#softshadow)">
+          <!-- L5 (top, narrowest) -->
+          <rect x="240" y="50" width="240" height="48" rx="8" fill="url(#l5g)" stroke="#10b981" stroke-width="1.5"/>
+          <text x="360" y="72" text-anchor="middle" font="700 14px ui-sans-serif,system-ui" fill="#ecfdf5">L5 · Reference</text>
+          <text x="360" y="89" text-anchor="middle" font="11px ui-sans-serif,system-ui" fill="#a7f3d0">pointers to Linear, Obsidian, external docs</text>
+
+          <!-- L4 -->
+          <rect x="200" y="108" width="320" height="48" rx="8" fill="url(#l4g)" stroke="#059669" stroke-width="1.5"/>
+          <text x="360" y="130" text-anchor="middle" font="700 14px ui-sans-serif,system-ui" fill="#ecfdf5">L4 · Directive</text>
+          <text x="360" y="147" text-anchor="middle" font="11px ui-sans-serif,system-ui" fill="#a7f3d0">CLAUDE.md · feedback memories · preferences</text>
+
+          <!-- L3 -->
+          <rect x="160" y="166" width="400" height="48" rx="8" fill="url(#l3g)" stroke="#047857" stroke-width="1.5"/>
+          <text x="360" y="188" text-anchor="middle" font="700 14px ui-sans-serif,system-ui" fill="#ecfdf5">L3 · Semantic</text>
+          <text x="360" y="205" text-anchor="middle" font="11px ui-sans-serif,system-ui" fill="#a7f3d0">stable concepts + entities · cross-session</text>
+
+          <!-- L2 -->
+          <rect x="120" y="224" width="480" height="48" rx="8" fill="url(#l2g)" stroke="#065f46" stroke-width="1.5"/>
+          <text x="360" y="246" text-anchor="middle" font="700 14px ui-sans-serif,system-ui" fill="#ecfdf5">L2 · Consolidated</text>
+          <text x="360" y="263" text-anchor="middle" font="11px ui-sans-serif,system-ui" fill="#a7f3d0">deduplicated observations · promoted by signal</text>
+
+          <!-- L1 (bottom, widest) -->
+          <rect x="80" y="282" width="560" height="48" rx="8" fill="url(#l1g)" stroke="#064e3b" stroke-width="1.5"/>
+          <text x="360" y="304" text-anchor="middle" font="700 14px ui-sans-serif,system-ui" fill="#ecfdf5">L1 · Episodic</text>
+          <text x="360" y="321" text-anchor="middle" font="11px ui-sans-serif,system-ui" fill="#a7f3d0">raw transcripts · tool calls · scratch</text>
+        </g>
+
+        <!-- consolidation arrows (upward promotion) -->
+        <g stroke="#10b981" stroke-width="1.2" fill="none" opacity="0.5">
+          <path d="M360,282 L360,272" marker-end="url(#up)"/>
+          <path d="M360,224 L360,214" marker-end="url(#up)"/>
+          <path d="M360,166 L360,156" marker-end="url(#up)"/>
+          <path d="M360,108 L360,98"  marker-end="url(#up)"/>
+        </g>
+        <defs>
+          <marker id="up" viewBox="0 0 10 10" refX="5" refY="8" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,10 L5,0 L10,10 z" fill="#10b981"/></marker>
+        </defs>
       </svg>
-      <figcaption class="text-xs text-neutral-500 mt-2 text-center">Five-layer memory hierarchy — wider tiers = higher volume, shorter half-life.</figcaption>
+      <figcaption class="text-xs text-neutral-500 mt-3 text-center">Five-layer memory hierarchy — widest tier = highest volume + shortest half-life. Arrows show promotion during dream cycles.</figcaption>
     </figure>
     <p class="text-neutral-300 leading-relaxed mb-6">
       Reverie maps LLM knowledge onto five tiers, each with its own retention and access policy:
@@ -100,43 +136,79 @@ import Layout from '../layouts/Layout.astro';
   <section class="mb-12">
     <h2 class="text-2xl font-semibold text-neutral-50 mb-4">Dream cycles</h2>
     <figure class="my-6">
-      <svg viewBox="0 0 720 120" class="w-full border border-neutral-800 rounded-lg bg-neutral-900 p-4">
-        <style>
-          .ph-box { fill: #052e1e; stroke: #10b981; stroke-width: 1.5; }
-          .ph-label { font: 600 12px ui-monospace, monospace; fill: #6ee7b7; text-anchor: middle; }
-          .ph-sub { font: 10px ui-sans-serif, system-ui; fill: #a3a3a3; text-anchor: middle; }
-          .ph-arrow { stroke: #10b981; stroke-width: 1.5; fill: none; marker-end: url(#ph-arr); }
-        </style>
+      <svg viewBox="0 0 720 420" class="w-full border border-neutral-800 rounded-xl bg-gradient-to-br from-neutral-950 to-neutral-900 p-4" aria-labelledby="dream-title">
+        <title id="dream-title">Six-phase dream cycle</title>
         <defs>
-          <marker id="ph-arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker>
+          <radialGradient id="moon" cx="0.5" cy="0.5" r="0.6"><stop offset="0" stop-color="#022c22"/><stop offset="1" stop-color="#0a0a0a"/></radialGradient>
+          <radialGradient id="phase-grad" cx="0.35" cy="0.35" r="0.7"><stop offset="0" stop-color="#065f46"/><stop offset="1" stop-color="#022c22"/></radialGradient>
+          <filter id="phase-glow" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="3" /><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+          <marker id="cycle-arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker>
         </defs>
-        <g>
-          <rect class="ph-box" x="10"  y="25" width="100" height="60" rx="6"/>
-          <text class="ph-label" x="60"  y="52">scan</text>
-          <text class="ph-sub"   x="60"  y="70">collect candidates</text>
-          <rect class="ph-box" x="128" y="25" width="100" height="60" rx="6"/>
-          <text class="ph-label" x="178" y="52">classify</text>
-          <text class="ph-sub"   x="178" y="70">assign type/kind</text>
-          <rect class="ph-box" x="246" y="25" width="100" height="60" rx="6"/>
-          <text class="ph-label" x="296" y="52">place</text>
-          <text class="ph-sub"   x="296" y="70">promote/demote</text>
-          <rect class="ph-box" x="364" y="25" width="100" height="60" rx="6"/>
-          <text class="ph-label" x="414" y="52">consolidate</text>
-          <text class="ph-sub"   x="414" y="70">merge near-dups</text>
-          <rect class="ph-box" x="482" y="25" width="100" height="60" rx="6"/>
-          <text class="ph-label" x="532" y="52">prune</text>
-          <text class="ph-sub"   x="532" y="70">drop low-signal</text>
-          <rect class="ph-box" x="600" y="25" width="100" height="60" rx="6"/>
-          <text class="ph-label" x="650" y="52">sync</text>
-          <text class="ph-sub"   x="650" y="70">mirror to external</text>
-          <path class="ph-arrow" d="M110,55 L128,55"/>
-          <path class="ph-arrow" d="M228,55 L246,55"/>
-          <path class="ph-arrow" d="M346,55 L364,55"/>
-          <path class="ph-arrow" d="M464,55 L482,55"/>
-          <path class="ph-arrow" d="M582,55 L600,55"/>
+        <!-- central moon glow -->
+        <circle cx="360" cy="210" r="160" fill="url(#moon)" opacity="0.8"/>
+        <circle cx="360" cy="210" r="110" fill="none" stroke="#064e3b" stroke-width="1" stroke-dasharray="2 6" opacity="0.5"/>
+        <text x="360" y="200" text-anchor="middle" font="700 22px ui-sans-serif,system-ui" fill="#10b981" opacity="0.9">dream</text>
+        <text x="360" y="222" text-anchor="middle" font="600 12px ui-monospace,monospace" fill="#6ee7b7" opacity="0.75">cycle</text>
+        <text x="360" y="242" text-anchor="middle" font="10px ui-sans-serif,system-ui" fill="#737373">min interval 30m</text>
+
+        <!-- six phase nodes arranged in a hexagon -->
+        <g font-family="ui-sans-serif, system-ui">
+          <!-- positions: 12, 2, 4, 6, 8, 10 o'clock -->
+          <!-- scan (12 o'clock) -->
+          <g transform="translate(360,55)" filter="url(#phase-glow)">
+            <circle r="42" fill="url(#phase-grad)" stroke="#10b981" stroke-width="1.8"/>
+            <text text-anchor="middle" y="-4" font="700 13px ui-sans-serif,system-ui" fill="#ecfdf5">scan</text>
+            <text text-anchor="middle" y="12" font="10px ui-sans-serif,system-ui" fill="#a7f3d0">collect</text>
+            <text text-anchor="middle" y="24" font="10px ui-sans-serif,system-ui" fill="#a7f3d0">candidates</text>
+          </g>
+          <!-- classify (2 o'clock) -->
+          <g transform="translate(564,135)" filter="url(#phase-glow)">
+            <circle r="42" fill="url(#phase-grad)" stroke="#10b981" stroke-width="1.8"/>
+            <text text-anchor="middle" y="-4" font="700 13px ui-sans-serif,system-ui" fill="#ecfdf5">classify</text>
+            <text text-anchor="middle" y="12" font="10px ui-sans-serif,system-ui" fill="#a7f3d0">assign type</text>
+            <text text-anchor="middle" y="24" font="10px ui-sans-serif,system-ui" fill="#a7f3d0">+ kind</text>
+          </g>
+          <!-- place (4 o'clock) -->
+          <g transform="translate(564,285)" filter="url(#phase-glow)">
+            <circle r="42" fill="url(#phase-grad)" stroke="#10b981" stroke-width="1.8"/>
+            <text text-anchor="middle" y="-4" font="700 13px ui-sans-serif,system-ui" fill="#ecfdf5">place</text>
+            <text text-anchor="middle" y="12" font="10px ui-sans-serif,system-ui" fill="#a7f3d0">promote /</text>
+            <text text-anchor="middle" y="24" font="10px ui-sans-serif,system-ui" fill="#a7f3d0">demote</text>
+          </g>
+          <!-- consolidate (6 o'clock) -->
+          <g transform="translate(360,365)" filter="url(#phase-glow)">
+            <circle r="42" fill="url(#phase-grad)" stroke="#10b981" stroke-width="1.8"/>
+            <text text-anchor="middle" y="-4" font="700 13px ui-sans-serif,system-ui" fill="#ecfdf5">consolidate</text>
+            <text text-anchor="middle" y="12" font="10px ui-sans-serif,system-ui" fill="#a7f3d0">merge</text>
+            <text text-anchor="middle" y="24" font="10px ui-sans-serif,system-ui" fill="#a7f3d0">near-dups</text>
+          </g>
+          <!-- prune (8 o'clock) -->
+          <g transform="translate(156,285)" filter="url(#phase-glow)">
+            <circle r="42" fill="url(#phase-grad)" stroke="#10b981" stroke-width="1.8"/>
+            <text text-anchor="middle" y="-4" font="700 13px ui-sans-serif,system-ui" fill="#ecfdf5">prune</text>
+            <text text-anchor="middle" y="12" font="10px ui-sans-serif,system-ui" fill="#a7f3d0">drop</text>
+            <text text-anchor="middle" y="24" font="10px ui-sans-serif,system-ui" fill="#a7f3d0">low-signal</text>
+          </g>
+          <!-- sync (10 o'clock) -->
+          <g transform="translate(156,135)" filter="url(#phase-glow)">
+            <circle r="42" fill="url(#phase-grad)" stroke="#10b981" stroke-width="1.8"/>
+            <text text-anchor="middle" y="-4" font="700 13px ui-sans-serif,system-ui" fill="#ecfdf5">sync</text>
+            <text text-anchor="middle" y="12" font="10px ui-sans-serif,system-ui" fill="#a7f3d0">mirror to</text>
+            <text text-anchor="middle" y="24" font="10px ui-sans-serif,system-ui" fill="#a7f3d0">external</text>
+          </g>
+        </g>
+
+        <!-- curved arrows around the hexagon, clockwise -->
+        <g fill="none" stroke="#10b981" stroke-width="1.6" opacity="0.7">
+          <path d="M 396,75 A 160,160 0 0,1 544,115" marker-end="url(#cycle-arr)"/>
+          <path d="M 574,175 A 160,160 0 0,1 574,245" marker-end="url(#cycle-arr)"/>
+          <path d="M 544,305 A 160,160 0 0,1 396,345" marker-end="url(#cycle-arr)"/>
+          <path d="M 324,345 A 160,160 0 0,1 176,305" marker-end="url(#cycle-arr)"/>
+          <path d="M 146,245 A 160,160 0 0,1 146,175" marker-end="url(#cycle-arr)"/>
+          <path d="M 176,115 A 160,160 0 0,1 324,75" marker-end="url(#cycle-arr)"/>
         </g>
       </svg>
-      <figcaption class="text-xs text-neutral-500 mt-2 text-center">Six-phase dream cycle — runs offline on a schedule (default 30 min min interval).</figcaption>
+      <figcaption class="text-xs text-neutral-500 mt-3 text-center">Six-phase dream cycle, clockwise from scan. Runs offline with a 30-minute minimum interval and single-flight guard.</figcaption>
     </figure>
     <p class="text-neutral-300 leading-relaxed mb-4">
       Offline, on a schedule, reverie runs the same six-phase pipeline a sleeping brain runs:

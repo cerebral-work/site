@@ -25,52 +25,99 @@ import Layout from '../layouts/Layout.astro';
   <section class="mb-12">
     <h2 class="text-2xl font-semibold text-neutral-50 mb-4">The seven roles</h2>
     <figure class="my-6">
-      <svg viewBox="0 0 720 420" class="w-full border border-neutral-800 rounded-lg bg-neutral-900 p-4">
-        <style>
-          .r-anchor  { fill: #0a0a0a; stroke: #6ee7b7; stroke-width: 2.5; }
-          .r-worker  { fill: #0a0a0a; stroke: #10b981; stroke-width: 1.5; }
-          .r-label   { font: 700 13px ui-monospace, monospace; fill: #fafafa; text-anchor: middle; }
-          .r-sub     { font: 10px ui-sans-serif, system-ui; fill: #a3a3a3; text-anchor: middle; }
-          .r-edge    { stroke: #065f46; stroke-width: 1.2; fill: none; stroke-dasharray: 3 3; }
-        </style>
-        <!-- anchor center -->
-        <circle class="r-anchor" cx="360" cy="210" r="52"/>
-        <text class="r-label" x="360" y="207">anchor</text>
-        <text class="r-sub"   x="360" y="224">opus</text>
-        <!-- six workers -->
+      <svg viewBox="0 0 720 460" class="w-full border border-neutral-800 rounded-xl bg-gradient-to-br from-neutral-950 to-neutral-900 p-4" aria-labelledby="mesh-title">
+        <title id="mesh-title">Seven-role mesh</title>
+        <defs>
+          <radialGradient id="anchor-g" cx="0.4" cy="0.4" r="0.7"><stop offset="0" stop-color="#34d399"/><stop offset="0.7" stop-color="#065f46"/><stop offset="1" stop-color="#022c22"/></radialGradient>
+          <radialGradient id="opus-g"   cx="0.35" cy="0.35" r="0.7"><stop offset="0" stop-color="#a78bfa"/><stop offset="1" stop-color="#2e1065"/></radialGradient>
+          <radialGradient id="sonnet-g" cx="0.35" cy="0.35" r="0.7"><stop offset="0" stop-color="#10b981"/><stop offset="1" stop-color="#022c22"/></radialGradient>
+          <radialGradient id="haiku-g"  cx="0.35" cy="0.35" r="0.7"><stop offset="0" stop-color="#fbbf24"/><stop offset="1" stop-color="#3f2e00"/></radialGradient>
+          <filter id="mesh-glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="4"/><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+          <marker id="pulse-arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981" opacity="0.6"/></marker>
+        </defs>
+
+        <!-- rings around anchor -->
+        <g fill="none" opacity="0.3">
+          <circle cx="360" cy="230" r="170" stroke="#065f46" stroke-width="1" stroke-dasharray="2 6"/>
+          <circle cx="360" cy="230" r="100" stroke="#065f46" stroke-width="1" stroke-dasharray="1 4"/>
+        </g>
+
+        <!-- dispatch lines (anchor → workers) -->
+        <g stroke="#10b981" stroke-width="1.3" fill="none" opacity="0.45">
+          <line x1="360" y1="180" x2="360" y2="100"/>
+          <line x1="406" y1="200" x2="560" y2="140"/>
+          <line x1="406" y1="260" x2="560" y2="320"/>
+          <line x1="360" y1="280" x2="360" y2="400"/>
+          <line x1="314" y1="260" x2="160" y2="320"/>
+          <line x1="314" y1="200" x2="160" y2="140"/>
+        </g>
+
+        <!-- anchor (center, opus = purple) -->
+        <g filter="url(#mesh-glow)">
+          <circle cx="360" cy="230" r="58" fill="url(#opus-g)" stroke="#a78bfa" stroke-width="2"/>
+          <text x="360" y="224" text-anchor="middle" font="700 16px ui-sans-serif,system-ui" fill="#f5f3ff">anchor</text>
+          <text x="360" y="244" text-anchor="middle" font="600 11px ui-monospace,monospace" fill="#c4b5fd">opus</text>
+          <text x="360" y="258" text-anchor="middle" font="9px ui-sans-serif,system-ui" fill="#ddd6fe" opacity="0.8">orchestrator</text>
+        </g>
+
+        <!-- workers (six) -->
         <g>
-          <ellipse class="r-worker" cx="360" cy="60"  rx="78" ry="32"/>
-          <text class="r-label" x="360" y="58">builder</text>
-          <text class="r-sub"   x="360" y="75">sonnet · implements</text>
-          <line class="r-edge" x1="360" y1="92"  x2="360" y2="158"/>
+          <!-- builder (top, sonnet = emerald) -->
+          <g filter="url(#mesh-glow)">
+            <circle cx="360" cy="65" r="42" fill="url(#sonnet-g)" stroke="#10b981" stroke-width="1.8"/>
+            <text x="360" y="60"  text-anchor="middle" font="700 13px ui-sans-serif,system-ui" fill="#ecfdf5">builder</text>
+            <text x="360" y="77"  text-anchor="middle" font="600 10px ui-monospace,monospace" fill="#6ee7b7">sonnet</text>
+            <text x="360" y="92"  text-anchor="middle" font="9px ui-sans-serif,system-ui" fill="#a7f3d0">implements</text>
+          </g>
+          <!-- memory (top-right, haiku = amber) -->
+          <g filter="url(#mesh-glow)">
+            <circle cx="600" cy="135" r="42" fill="url(#haiku-g)" stroke="#fbbf24" stroke-width="1.8"/>
+            <text x="600" y="130" text-anchor="middle" font="700 13px ui-sans-serif,system-ui" fill="#fffbeb">memory</text>
+            <text x="600" y="147" text-anchor="middle" font="600 10px ui-monospace,monospace" fill="#fde68a">haiku</text>
+            <text x="600" y="162" text-anchor="middle" font="9px ui-sans-serif,system-ui" fill="#fef3c7">custodian</text>
+          </g>
+          <!-- release (bottom-right, sonnet) -->
+          <g filter="url(#mesh-glow)">
+            <circle cx="600" cy="325" r="42" fill="url(#sonnet-g)" stroke="#10b981" stroke-width="1.8"/>
+            <text x="600" y="320" text-anchor="middle" font="700 13px ui-sans-serif,system-ui" fill="#ecfdf5">release</text>
+            <text x="600" y="337" text-anchor="middle" font="600 10px ui-monospace,monospace" fill="#6ee7b7">sonnet</text>
+            <text x="600" y="352" text-anchor="middle" font="9px ui-sans-serif,system-ui" fill="#a7f3d0">reviewer</text>
+          </g>
+          <!-- research (bottom, sonnet) -->
+          <g filter="url(#mesh-glow)">
+            <circle cx="360" cy="395" r="42" fill="url(#sonnet-g)" stroke="#10b981" stroke-width="1.8"/>
+            <text x="360" y="390" text-anchor="middle" font="700 13px ui-sans-serif,system-ui" fill="#ecfdf5">research</text>
+            <text x="360" y="407" text-anchor="middle" font="600 10px ui-monospace,monospace" fill="#6ee7b7">sonnet</text>
+            <text x="360" y="422" text-anchor="middle" font="9px ui-sans-serif,system-ui" fill="#a7f3d0">explorer</text>
+          </g>
+          <!-- security (bottom-left, sonnet) -->
+          <g filter="url(#mesh-glow)">
+            <circle cx="120" cy="325" r="42" fill="url(#sonnet-g)" stroke="#10b981" stroke-width="1.8"/>
+            <text x="120" y="320" text-anchor="middle" font="700 13px ui-sans-serif,system-ui" fill="#ecfdf5">security</text>
+            <text x="120" y="337" text-anchor="middle" font="600 10px ui-monospace,monospace" fill="#6ee7b7">sonnet</text>
+            <text x="120" y="352" text-anchor="middle" font="9px ui-sans-serif,system-ui" fill="#a7f3d0">auditor</text>
+          </g>
+          <!-- steward (top-left, haiku) -->
+          <g filter="url(#mesh-glow)">
+            <circle cx="120" cy="135" r="42" fill="url(#haiku-g)" stroke="#fbbf24" stroke-width="1.8"/>
+            <text x="120" y="130" text-anchor="middle" font="700 13px ui-sans-serif,system-ui" fill="#fffbeb">steward</text>
+            <text x="120" y="147" text-anchor="middle" font="600 10px ui-monospace,monospace" fill="#fde68a">haiku</text>
+            <text x="120" y="162" text-anchor="middle" font="9px ui-sans-serif,system-ui" fill="#fef3c7">groomer</text>
+          </g>
+        </g>
 
-          <ellipse class="r-worker" cx="600" cy="130" rx="78" ry="32"/>
-          <text class="r-label" x="600" y="128">memory</text>
-          <text class="r-sub"   x="600" y="145">haiku · custodian</text>
-          <line class="r-edge" x1="535" y1="147" x2="410" y2="195"/>
-
-          <ellipse class="r-worker" cx="600" cy="290" rx="78" ry="32"/>
-          <text class="r-label" x="600" y="288">release</text>
-          <text class="r-sub"   x="600" y="305">sonnet · reviewer</text>
-          <line class="r-edge" x1="535" y1="273" x2="410" y2="225"/>
-
-          <ellipse class="r-worker" cx="360" cy="360" rx="78" ry="32"/>
-          <text class="r-label" x="360" y="358">research</text>
-          <text class="r-sub"   x="360" y="375">sonnet · explorer</text>
-          <line class="r-edge" x1="360" y1="328" x2="360" y2="262"/>
-
-          <ellipse class="r-worker" cx="120" cy="290" rx="78" ry="32"/>
-          <text class="r-label" x="120" y="288">security</text>
-          <text class="r-sub"   x="120" y="305">sonnet · auditor</text>
-          <line class="r-edge" x1="185" y1="273" x2="310" y2="225"/>
-
-          <ellipse class="r-worker" cx="120" cy="130" rx="78" ry="32"/>
-          <text class="r-label" x="120" y="128">steward</text>
-          <text class="r-sub"   x="120" y="145">haiku · groomer</text>
-          <line class="r-edge" x1="185" y1="147" x2="310" y2="195"/>
+        <!-- model tier legend bottom -->
+        <g transform="translate(20, 438)" font-family="ui-sans-serif,system-ui">
+          <circle cx="8"   cy="0" r="6" fill="url(#opus-g)" stroke="#a78bfa" stroke-width="1"/>
+          <text x="22"  y="3" font="10px ui-sans-serif,system-ui" fill="#c4b5fd">opus</text>
+          <circle cx="72"  cy="0" r="6" fill="url(#sonnet-g)" stroke="#10b981" stroke-width="1"/>
+          <text x="86"  y="3" font="10px ui-sans-serif,system-ui" fill="#6ee7b7">sonnet</text>
+          <circle cx="144" cy="0" r="6" fill="url(#haiku-g)" stroke="#fbbf24" stroke-width="1"/>
+          <text x="158" y="3" font="10px ui-sans-serif,system-ui" fill="#fde68a">haiku</text>
+          <text x="580" y="3" font="10px ui-monospace,monospace" fill="#525252" text-anchor="end">dashed lines = coord-send dispatch</text>
         </g>
       </svg>
-      <figcaption class="text-xs text-neutral-500 mt-2 text-center">Seven-role mesh — one anchor dispatching to six specialists.</figcaption>
+      <figcaption class="text-xs text-neutral-500 mt-3 text-center">Seven-role mesh. Anchor (opus) dispatches to six specialists over the coord filesystem-backed inbox. Color = model tier.</figcaption>
     </figure>
     <p class="text-neutral-300 leading-relaxed mb-6">
       A mesh has exactly one anchor and six specialist workers. Each role has its own
@@ -133,48 +180,84 @@ import Layout from '../layouts/Layout.astro';
   <section class="mb-12">
     <h2 class="text-2xl font-semibold text-neutral-50 mb-4">Task flow</h2>
     <figure class="my-6">
-      <svg viewBox="0 0 720 180" class="w-full border border-neutral-800 rounded-lg bg-neutral-900 p-4">
-        <style>
-          .f-node { fill: #0a0a0a; stroke: #10b981; stroke-width: 1.5; rx: 6; }
-          .f-label { font: 600 12px ui-monospace, monospace; fill: #fafafa; text-anchor: middle; }
-          .f-sub   { font: 10px ui-sans-serif, system-ui; fill: #a3a3a3; text-anchor: middle; }
-          .f-arrow { stroke: #10b981; stroke-width: 1.5; fill: none; marker-end: url(#f-arr); }
-          .f-arrow-ret { stroke: #065f46; stroke-width: 1.3; fill: none; marker-end: url(#f-arr); stroke-dasharray: 3 3; }
-        </style>
+      <svg viewBox="0 0 760 260" class="w-full border border-neutral-800 rounded-xl bg-gradient-to-br from-neutral-950 to-neutral-900 p-4" aria-labelledby="flow-title">
+        <title id="flow-title">Fan-out task flow</title>
         <defs>
-          <marker id="f-arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker>
+          <linearGradient id="node-g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0f172a"/><stop offset="1" stop-color="#020617"/></linearGradient>
+          <linearGradient id="queue-g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#991b1b"/><stop offset="1" stop-color="#450a0a"/></linearGradient>
+          <linearGradient id="worker-g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#065f46"/><stop offset="1" stop-color="#022c22"/></linearGradient>
+          <linearGradient id="results-g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1e3a8a"/><stop offset="1" stop-color="#0f172a"/></linearGradient>
+          <linearGradient id="flow-line" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#10b981" stop-opacity="0.1"/><stop offset="0.5" stop-color="#10b981" stop-opacity="0.9"/><stop offset="1" stop-color="#10b981" stop-opacity="0.1"/></linearGradient>
+          <filter id="flow-glow" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="2.5"/><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+          <marker id="flow-arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker>
+          <marker id="flow-arr-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#60a5fa"/></marker>
         </defs>
-        <rect class="f-node" x="20"  y="60" width="120" height="60"/>
-        <text class="f-label" x="80"  y="88">anchor</text>
-        <text class="f-sub"   x="80"  y="104">dispatches</text>
 
-        <rect class="f-node" x="180" y="60" width="160" height="60"/>
-        <text class="f-label" x="260" y="83">Redis stream</text>
-        <text class="f-sub"   x="260" y="100">tasks:queue:default</text>
-        <text class="f-sub"   x="260" y="114">(XADD)</text>
+        <!-- anchor -->
+        <g filter="url(#flow-glow)">
+          <rect x="20" y="100" width="110" height="60" rx="10" fill="url(#node-g)" stroke="#a78bfa" stroke-width="1.8"/>
+          <text x="75" y="128" text-anchor="middle" font="700 14px ui-sans-serif,system-ui" fill="#f5f3ff">anchor</text>
+          <text x="75" y="146" text-anchor="middle" font="10px ui-monospace,monospace" fill="#c4b5fd">opus</text>
+        </g>
 
-        <rect class="f-node" x="380" y="20" width="160" height="40"/>
-        <text class="f-label" x="460" y="45">builder-q1</text>
-        <rect class="f-node" x="380" y="70" width="160" height="40"/>
-        <text class="f-label" x="460" y="95">builder-q2</text>
-        <rect class="f-node" x="380" y="120" width="160" height="40"/>
-        <text class="f-label" x="460" y="145">builder-q3…</text>
+        <!-- Redis queue (drawn like a stack of cards) -->
+        <g filter="url(#flow-glow)">
+          <rect x="194" y="115" width="140" height="48" rx="6" fill="url(#queue-g)" stroke="#f87171" stroke-width="1.3" opacity="0.7"/>
+          <rect x="190" y="108" width="140" height="48" rx="6" fill="url(#queue-g)" stroke="#f87171" stroke-width="1.3" opacity="0.85"/>
+          <rect x="186" y="100" width="140" height="48" rx="6" fill="url(#queue-g)" stroke="#f87171" stroke-width="1.5"/>
+          <text x="256" y="122" text-anchor="middle" font="700 12px ui-sans-serif,system-ui" fill="#fef2f2">Redis stream</text>
+          <text x="256" y="138" text-anchor="middle" font="10px ui-monospace,monospace" fill="#fca5a5">tasks:queue:default</text>
+        </g>
 
-        <rect class="f-node" x="580" y="60" width="120" height="60"/>
-        <text class="f-label" x="640" y="83">tasks:results</text>
-        <text class="f-sub"   x="640" y="100">cherry-pick</text>
-        <text class="f-sub"   x="640" y="114">to main</text>
+        <!-- builder workers -->
+        <g>
+          <g filter="url(#flow-glow)">
+            <rect x="406" y="30"  width="170" height="44" rx="8" fill="url(#worker-g)" stroke="#10b981" stroke-width="1.5"/>
+            <circle cx="423" cy="52" r="4" fill="#34d399"/>
+            <text x="495" y="48" text-anchor="middle" font="600 12px ui-monospace,monospace" fill="#ecfdf5">builder-q1</text>
+            <text x="495" y="64" text-anchor="middle" font="9px ui-sans-serif,system-ui" fill="#a7f3d0">XREADGROUP</text>
+          </g>
+          <g filter="url(#flow-glow)">
+            <rect x="406" y="108" width="170" height="44" rx="8" fill="url(#worker-g)" stroke="#10b981" stroke-width="1.5"/>
+            <circle cx="423" cy="130" r="4" fill="#34d399"/>
+            <text x="495" y="126" text-anchor="middle" font="600 12px ui-monospace,monospace" fill="#ecfdf5">builder-q2</text>
+            <text x="495" y="142" text-anchor="middle" font="9px ui-sans-serif,system-ui" fill="#a7f3d0">XREADGROUP</text>
+          </g>
+          <g filter="url(#flow-glow)">
+            <rect x="406" y="186" width="170" height="44" rx="8" fill="url(#worker-g)" stroke="#10b981" stroke-width="1.5"/>
+            <circle cx="423" cy="208" r="4" fill="#34d399"/>
+            <text x="495" y="204" text-anchor="middle" font="600 12px ui-monospace,monospace" fill="#ecfdf5">builder-q3 …</text>
+            <text x="495" y="220" text-anchor="middle" font="9px ui-sans-serif,system-ui" fill="#a7f3d0">autoscaled pool</text>
+          </g>
+        </g>
 
-        <path class="f-arrow" d="M140,90 L180,90"/>
-        <path class="f-arrow" d="M340,85 L380,40"/>
-        <path class="f-arrow" d="M340,90 L380,90"/>
-        <path class="f-arrow" d="M340,95 L380,140"/>
-        <path class="f-arrow" d="M540,40 L580,80"/>
-        <path class="f-arrow" d="M540,90 L580,90"/>
-        <path class="f-arrow" d="M540,140 L580,100"/>
-        <path class="f-arrow-ret" d="M640,120 Q 640,160 80,160 L80,120"/>
+        <!-- results stream -->
+        <g filter="url(#flow-glow)">
+          <rect x="624" y="115" width="120" height="48" rx="6" fill="url(#results-g)" stroke="#60a5fa" stroke-width="1.5"/>
+          <rect x="620" y="108" width="120" height="48" rx="6" fill="url(#results-g)" stroke="#60a5fa" stroke-width="1.5" opacity="0.6"/>
+          <text x="684" y="122" text-anchor="middle" font="700 12px ui-sans-serif,system-ui" fill="#eff6ff">tasks:results</text>
+          <text x="684" y="138" text-anchor="middle" font="10px ui-monospace,monospace" fill="#93c5fd">XADD on exit</text>
+        </g>
+
+        <!-- flow arrows -->
+        <g fill="none" stroke-width="2">
+          <path d="M130,130 L186,124" stroke="url(#flow-line)" marker-end="url(#flow-arr)"/>
+          <text x="158" y="116" text-anchor="middle" font="9px ui-monospace,monospace" fill="#10b981">XADD</text>
+
+          <path d="M326,120 L406,52"  stroke="#10b981" opacity="0.6" marker-end="url(#flow-arr)"/>
+          <path d="M326,124 L406,130" stroke="#10b981" opacity="0.6" marker-end="url(#flow-arr)"/>
+          <path d="M326,128 L406,208" stroke="#10b981" opacity="0.6" marker-end="url(#flow-arr)"/>
+
+          <path d="M576,52  L624,126" stroke="#60a5fa" opacity="0.6" marker-end="url(#flow-arr-blue)"/>
+          <path d="M576,130 L624,130" stroke="#60a5fa" opacity="0.6" marker-end="url(#flow-arr-blue)"/>
+          <path d="M576,208 L624,134" stroke="#60a5fa" opacity="0.6" marker-end="url(#flow-arr-blue)"/>
+
+          <!-- cherry-pick back to anchor -->
+          <path d="M684,160 Q 684,220 75,220 L75,162" stroke="#3b82f6" stroke-width="1.3" stroke-dasharray="4 4" marker-end="url(#flow-arr-blue)" opacity="0.6"/>
+          <text x="380" y="238" text-anchor="middle" font="9px ui-monospace,monospace" fill="#60a5fa">cherry-pick to main</text>
+        </g>
       </svg>
-      <figcaption class="text-xs text-neutral-500 mt-2 text-center">Fan-out task flow — anchor XADDs to Redis stream; queue-drain workers XREADGROUP, build in isolated worktrees, post results; anchor cherry-picks to main.</figcaption>
+      <figcaption class="text-xs text-neutral-500 mt-3 text-center">Anchor XADDs to <code class="text-red-300">tasks:queue:default</code>; queue-drain workers XREADGROUP, ACK after execute, and post to <code class="text-blue-300">tasks:results</code>. Anchor cherry-picks to main.</figcaption>
     </figure>
 
     <h2 class="text-2xl font-semibold text-neutral-50 mb-4 mt-12">Coordination primitives</h2>
