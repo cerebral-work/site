@@ -1,0 +1,138 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+<Layout
+  title="meshctl — orchestrate a mesh of Claude agents"
+  description="Seven-role mesh of parallel Claude agents with worktree isolation, file locks, live dashboards, and fan-out task queues."
+>
+  <nav class="text-sm text-neutral-500 mb-8">
+    <a href="/" class="hover:text-emerald-400">cerebral.work</a> / meshctl
+  </nav>
+
+  <header class="mb-12">
+    <h1 class="text-5xl font-bold tracking-tight text-neutral-50 mb-4">meshctl</h1>
+    <p class="text-xl text-neutral-400 leading-relaxed">
+      Orchestrate a mesh of parallel Claude agents. Seven specialized roles, worktree isolation,
+      file locks, live telemetry — the glue that makes multi-agent coding actually work.
+    </p>
+    <div class="mt-6 flex gap-4 text-sm">
+      <a href="https://github.com/cerebral-work/reverie/tree/main/crates/meshctl" class="text-emerald-400 hover:text-emerald-300">source →</a>
+      <span class="text-neutral-600">·</span>
+      <span class="text-neutral-500">Rust · MIT · bundled with reverie</span>
+    </div>
+  </header>
+
+  <section class="mb-12">
+    <h2 class="text-2xl font-semibold text-neutral-50 mb-4">The seven roles</h2>
+    <p class="text-neutral-300 leading-relaxed mb-6">
+      A mesh has exactly one anchor and six specialist workers. Each role has its own
+      capabilities, hard boundaries, and model tier — anchors use opus for orchestration,
+      memory uses haiku for lightweight custodial work, builders use sonnet for code.
+    </p>
+    <div class="grid md:grid-cols-2 gap-3">
+      <div class="border border-neutral-800 rounded p-4">
+        <div class="flex items-baseline justify-between mb-1">
+          <span class="font-semibold text-emerald-400">anchor</span>
+          <span class="text-xs text-neutral-500">opus · orchestrator</span>
+        </div>
+        <p class="text-sm text-neutral-400">Dispatches work, monitors health, cherry-picks to main.</p>
+      </div>
+      <div class="border border-neutral-800 rounded p-4">
+        <div class="flex items-baseline justify-between mb-1">
+          <span class="font-semibold text-emerald-400">builder</span>
+          <span class="text-xs text-neutral-500">sonnet · implementor</span>
+        </div>
+        <p class="text-sm text-neutral-400">Writes crate code. Uses file locks for shared files.</p>
+      </div>
+      <div class="border border-neutral-800 rounded p-4">
+        <div class="flex items-baseline justify-between mb-1">
+          <span class="font-semibold text-emerald-400">memory</span>
+          <span class="text-xs text-neutral-500">haiku · custodian</span>
+        </div>
+        <p class="text-sm text-neutral-400">Runs dream cycles, dedup, consolidation, context quality.</p>
+      </div>
+      <div class="border border-neutral-800 rounded p-4">
+        <div class="flex items-baseline justify-between mb-1">
+          <span class="font-semibold text-emerald-400">release</span>
+          <span class="text-xs text-neutral-500">sonnet · reviewer</span>
+        </div>
+        <p class="text-sm text-neutral-400">Linear triage, PR review, CHANGELOG, release cuts.</p>
+      </div>
+      <div class="border border-neutral-800 rounded p-4">
+        <div class="flex items-baseline justify-between mb-1">
+          <span class="font-semibold text-emerald-400">research</span>
+          <span class="text-xs text-neutral-500">sonnet · explorer</span>
+        </div>
+        <p class="text-sm text-neutral-400">External research, prior art, codebase exploration.</p>
+      </div>
+      <div class="border border-neutral-800 rounded p-4">
+        <div class="flex items-baseline justify-between mb-1">
+          <span class="font-semibold text-emerald-400">security</span>
+          <span class="text-xs text-neutral-500">sonnet · auditor</span>
+        </div>
+        <p class="text-sm text-neutral-400">Secret scanning, dep audits, permission review.</p>
+      </div>
+      <div class="border border-neutral-800 rounded p-4 md:col-span-2">
+        <div class="flex items-baseline justify-between mb-1">
+          <span class="font-semibold text-emerald-400">steward</span>
+          <span class="text-xs text-neutral-500">haiku · groomer</span>
+        </div>
+        <p class="text-sm text-neutral-400">Periodic backlog grooming, terminology drift, roadmap coherence.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="mb-12">
+    <h2 class="text-2xl font-semibold text-neutral-50 mb-4">Coordination primitives</h2>
+    <ul class="space-y-3 text-neutral-300">
+      <li class="border-l-2 border-emerald-700 pl-4">
+        <span class="text-emerald-400 font-semibold">coord</span>
+        — filesystem-backed session registry + inbox. `coord register`, `coord peers`,
+        `coord send <peer> <kind> <subject>`. Atomic mkdir locks.
+      </li>
+      <li class="border-l-2 border-emerald-700 pl-4">
+        <span class="text-emerald-400 font-semibold">file-lock</span>
+        — mandatory gate before editing shared files. Sub-project granularity, deadlock
+        detection via wait-for graph.
+      </li>
+      <li class="border-l-2 border-emerald-700 pl-4">
+        <span class="text-emerald-400 font-semibold">worktrees</span>
+        — every worker gets `~/projects/reverie-wt-&lt;role&gt;/` on its own branch. Zero shared
+        mutable state.
+      </li>
+      <li class="border-l-2 border-emerald-700 pl-4">
+        <span class="text-emerald-400 font-semibold">Redis task queue</span>
+        — `tasks:queue:default` for fan-out. `mesh-spawn --queue` workers drain it via
+        `XREADGROUP`, post results to `tasks:results`.
+      </li>
+      <li class="border-l-2 border-emerald-700 pl-4">
+        <span class="text-emerald-400 font-semibold">supervisor loop</span>
+        — every worker wrapper restarts `claude -p` on exit with quadratic backoff and a
+        rapid-fail giveup cap. Single-shot prompts become persistent agents.
+      </li>
+    </ul>
+  </section>
+
+  <section class="mb-12">
+    <h2 class="text-2xl font-semibold text-neutral-50 mb-4">Dashboard</h2>
+    <p class="text-neutral-300 leading-relaxed mb-4">
+      <code class="text-emerald-400">meshctl dash</code> gives you a live, full-screen view:
+      service health (reveried, redis, memcache), offload chain (ollama, openrouter), peer
+      table with per-worker heartbeat and task phase, GPU sparklines, queue depth, dead-letter
+      counts, and an event feed streaming every XADD and completion.
+    </p>
+    <p class="text-neutral-300 leading-relaxed">
+      Keybindings include filter, sort, jump-to-peer-detail, pause, theme cycle, and a vim-style
+      command mode for dispatch without leaving the TUI.
+    </p>
+  </section>
+
+  <section class="mb-12">
+    <h2 class="text-2xl font-semibold text-neutral-50 mb-4">Quick start</h2>
+    <pre class="bg-neutral-900 border border-neutral-800 rounded p-4 text-sm text-neutral-300 overflow-x-auto"><code>cd ~/projects/reverie
+make release && make install-all
+meshctl init           # cold-boot the mesh
+meshctl dash           # live telemetry
+meshctl execute "task" # route to the right worker</code></pre>
+  </section>
+</Layout>

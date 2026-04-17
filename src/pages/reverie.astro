@@ -1,0 +1,111 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+<Layout
+  title="reverie — memory consolidation daemon"
+  description="Neuroscience-grounded memory consolidation daemon for LLM coding harnesses. 5-layer memory hierarchy + offline dream cycles modeled on biological sleep."
+>
+  <nav class="text-sm text-neutral-500 mb-8">
+    <a href="/" class="hover:text-emerald-400">cerebral.work</a> / reverie
+  </nav>
+
+  <header class="mb-12">
+    <h1 class="text-5xl font-bold tracking-tight text-neutral-50 mb-4">reverie</h1>
+    <p class="text-xl text-neutral-400 leading-relaxed">
+      Memory consolidation daemon for LLM coding harnesses. Five-layer hierarchy + offline
+      dream cycles, modeled on biological sleep.
+    </p>
+    <div class="mt-6 flex gap-4 text-sm">
+      <a href="https://github.com/cerebral-work/reverie" class="text-emerald-400 hover:text-emerald-300">github.com/cerebral-work/reverie →</a>
+      <span class="text-neutral-600">·</span>
+      <span class="text-neutral-500">Rust · MIT</span>
+    </div>
+  </header>
+
+  <section class="mb-12">
+    <h2 class="text-2xl font-semibold text-neutral-50 mb-4">The problem</h2>
+    <p class="text-neutral-300 leading-relaxed mb-4">
+      LLM harnesses dump every observation into a single flat store. Over time you get
+      duplicate entries saying the same thing three different ways, directives buried under
+      irrelevant logs, decisions that contradict other decisions nobody noticed, and stale
+      facts crowding out fresh ones. Retrieval quality collapses, and you burn tokens rehashing
+      what's already known.
+    </p>
+    <p class="text-neutral-300 leading-relaxed">
+      The root cause isn't the database — it's the absence of a
+      <em class="text-emerald-300">placement theory</em>. Memory types have different lifetimes,
+      different access patterns, and different consolidation rules. A single flat bucket
+      pretends they don't.
+    </p>
+  </section>
+
+  <section class="mb-12">
+    <h2 class="text-2xl font-semibold text-neutral-50 mb-4">Five-layer hierarchy</h2>
+    <p class="text-neutral-300 leading-relaxed mb-6">
+      Reverie maps LLM knowledge onto five tiers, each with its own retention and access policy:
+    </p>
+    <ul class="space-y-3 text-neutral-300">
+      <li class="border-l-2 border-emerald-700 pl-4">
+        <span class="text-emerald-400 font-semibold">L1 · Episodic</span>
+        — raw session transcripts, tool calls, scratch. High volume, short half-life.
+      </li>
+      <li class="border-l-2 border-emerald-700 pl-4">
+        <span class="text-emerald-400 font-semibold">L2 · Consolidated</span>
+        — de-duplicated observations from L1, promoted by repetition and novelty.
+      </li>
+      <li class="border-l-2 border-emerald-700 pl-4">
+        <span class="text-emerald-400 font-semibold">L3 · Semantic</span>
+        — stable concepts and entities, accessed across many sessions.
+      </li>
+      <li class="border-l-2 border-emerald-700 pl-4">
+        <span class="text-emerald-400 font-semibold">L4 · Directive</span>
+        — rules of engagement: `CLAUDE.md`, feedback memories, preferences.
+      </li>
+      <li class="border-l-2 border-emerald-700 pl-4">
+        <span class="text-emerald-400 font-semibold">L5 · Reference</span>
+        — pointers to external systems (Linear, Obsidian, docs), not the content itself.
+      </li>
+    </ul>
+  </section>
+
+  <section class="mb-12">
+    <h2 class="text-2xl font-semibold text-neutral-50 mb-4">Dream cycles</h2>
+    <p class="text-neutral-300 leading-relaxed mb-4">
+      Offline, on a schedule, reverie runs the same six-phase pipeline a sleeping brain runs:
+      scan → classify → place → consolidate → prune → sync. Near-duplicates merge, stale entries
+      downscale, high-signal observations promote between layers, and the whole state syncs to
+      external mirrors (Obsidian vault, auto-memory files).
+    </p>
+    <p class="text-neutral-300 leading-relaxed">
+      Scoring draws from Ebbinghaus stability, SM-2 spaced repetition, and hippocampal
+      sparse-coding — neuroscience primitives with 40 years of empirical support, not ad-hoc
+      heuristics.
+    </p>
+  </section>
+
+  <section class="mb-12">
+    <h2 class="text-2xl font-semibold text-neutral-50 mb-4">Hybrid search</h2>
+    <p class="text-neutral-300 leading-relaxed mb-4">
+      Retrieval blends SQLite FTS5 keyword matching with sqlite-vec semantic embeddings
+      (fastembed on BGE-large, 1024d). Results fuse via Reciprocal Rank Fusion and get
+      reweighted by layer depth, session-spread, time-decay, and Ebbinghaus stability.
+    </p>
+    <p class="text-neutral-300 leading-relaxed">
+      Current LoCoMo baseline: R@5=77.0%, MRR=0.628. Moving targets — the benchmark is committed
+      to the repo so regressions get caught.
+    </p>
+  </section>
+
+  <section class="mb-12">
+    <h2 class="text-2xl font-semibold text-neutral-50 mb-4">Quick start</h2>
+    <pre class="bg-neutral-900 border border-neutral-800 rounded p-4 text-sm text-neutral-300 overflow-x-auto"><code>git clone https://github.com/cerebral-work/reverie
+cd reverie
+make release && make install-all
+reveried serve &
+meshctl init</code></pre>
+    <p class="text-neutral-400 text-sm mt-4">
+      See <a href="https://github.com/cerebral-work/reverie/blob/main/docs/daemon-spec.md" class="text-emerald-400 hover:text-emerald-300">docs/daemon-spec.md</a>
+      for the architecture deep-dive.
+    </p>
+  </section>
+</Layout>

@@ -1,17 +1,57 @@
 ---
-
+import Layout from '../layouts/Layout.astro';
 ---
+<Layout title="cerebral.work — neuroscience-grounded tools for LLM coding harnesses">
+  <section class="py-12">
+    <h1 class="text-5xl font-bold tracking-tight text-neutral-50 mb-6">
+      Tools for <span class="text-emerald-400">coherent</span> LLM coding agents.
+    </h1>
+    <p class="text-xl text-neutral-400 leading-relaxed max-w-2xl">
+      We build infrastructure that gives AI coding agents persistent memory and orchestrated
+      multi-agent coordination — modeled on how biological minds actually work.
+    </p>
+  </section>
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+  <section class="grid md:grid-cols-2 gap-6 my-12">
+    <a href="/reverie" class="group block p-6 border border-neutral-800 rounded-lg hover:border-emerald-600 transition-colors">
+      <div class="flex items-center justify-between mb-2">
+        <h2 class="text-2xl font-semibold text-neutral-50 group-hover:text-emerald-400 transition-colors">reverie</h2>
+        <span class="text-xs text-neutral-500">daemon</span>
+      </div>
+      <p class="text-neutral-400 text-sm leading-relaxed mb-4">
+        A memory consolidation daemon for LLM coding harnesses. Five-layer hierarchy, offline
+        dream cycles, hybrid search — modeled on biological sleep consolidation.
+      </p>
+      <div class="text-xs text-emerald-500 group-hover:text-emerald-400">Read more →</div>
+    </a>
+
+    <a href="/meshctl" class="group block p-6 border border-neutral-800 rounded-lg hover:border-emerald-600 transition-colors">
+      <div class="flex items-center justify-between mb-2">
+        <h2 class="text-2xl font-semibold text-neutral-50 group-hover:text-emerald-400 transition-colors">meshctl</h2>
+        <span class="text-xs text-neutral-500">cli + tui</span>
+      </div>
+      <p class="text-neutral-400 text-sm leading-relaxed mb-4">
+        A seven-role mesh for orchestrating parallel Claude agents. One anchor dispatches,
+        workers build in isolated worktrees, and meshctl holds it together with live telemetry.
+      </p>
+      <div class="text-xs text-emerald-500 group-hover:text-emerald-400">Read more →</div>
+    </a>
+  </section>
+
+  <section class="my-16">
+    <h3 class="text-sm uppercase tracking-wider text-neutral-500 mb-4">Why this exists</h3>
+    <p class="text-neutral-300 leading-relaxed max-w-3xl">
+      LLM coding harnesses — Claude Code, Cursor, Windsurf — accumulate knowledge across sessions
+      but lack a <em class="text-emerald-300">theory</em> of where it should live. The default
+      "dump everything into one store" degrades over time through duplication, misplacement,
+      noise, and staleness. Meanwhile, running more than one agent at once requires ad-hoc
+      tmux hacks that break the moment two sessions race on the same file.
+    </p>
+    <p class="text-neutral-300 leading-relaxed max-w-3xl mt-4">
+      Both problems have biological precedents. Memory consolidation is a 70-year-old area of
+      neuroscience; multi-agent coordination is a textbook chapter in distributed systems.
+      cerebral.work ports what's been learned in each into the daily workflow of building
+      software with AI.
+    </p>
+  </section>
+</Layout>
