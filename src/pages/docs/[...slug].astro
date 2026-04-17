@@ -1,0 +1,49 @@
+---
+import { getCollection, render } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+
+export async function getStaticPaths() {
+  const docs = await getCollection('docs');
+  return docs.map(d => ({ params: { slug: d.id }, props: { doc: d } }));
+}
+
+const { doc } = Astro.props;
+const { Content } = await render(doc);
+const title = doc.data.title ?? doc.id.split('/').pop()!.replace(/-/g, ' ');
+---
+<Layout title={`${title} — cerebral.work docs`} description={doc.data.description}>
+  <nav class="text-sm text-neutral-500 mb-8">
+    <a href="/" class="hover:text-emerald-400">cerebral.work</a> /
+    <a href="/docs" class="hover:text-emerald-400">docs</a> /
+    <span class="text-neutral-300">{doc.id}</span>
+  </nav>
+  <article class="prose-reverie">
+    <Content />
+  </article>
+</Layout>
+
+<style is:global>
+  .prose-reverie { color: #d4d4d4; font-family: ui-sans-serif, system-ui, sans-serif; line-height: 1.7; }
+  .prose-reverie h1 { font-size: 2.25rem; font-weight: 700; color: #fafafa; margin-top: 0; margin-bottom: 1.5rem; letter-spacing: -0.02em; }
+  .prose-reverie h2 { font-size: 1.5rem; font-weight: 600; color: #fafafa; margin-top: 2.5rem; margin-bottom: 1rem; }
+  .prose-reverie h3 { font-size: 1.25rem; font-weight: 600; color: #fafafa; margin-top: 2rem; margin-bottom: 0.75rem; }
+  .prose-reverie h4 { font-size: 1.1rem; font-weight: 600; color: #fafafa; margin-top: 1.5rem; margin-bottom: 0.5rem; }
+  .prose-reverie p { margin-bottom: 1rem; }
+  .prose-reverie a { color: #34d399; text-decoration: underline; text-underline-offset: 2px; }
+  .prose-reverie a:hover { color: #6ee7b7; }
+  .prose-reverie code { background: #171717; border: 1px solid #262626; border-radius: 4px; padding: 0.125rem 0.375rem; font-family: ui-monospace, monospace; font-size: 0.875em; color: #a7f3d0; }
+  .prose-reverie pre { background: #0a0a0a !important; border: 1px solid #262626; border-radius: 0.5rem; padding: 1rem; margin: 1.25rem 0; overflow-x: auto; font-size: 0.85rem; }
+  .prose-reverie pre code { background: transparent; border: 0; padding: 0; color: inherit; }
+  .prose-reverie ul { list-style: disc; margin-left: 1.5rem; margin-bottom: 1rem; }
+  .prose-reverie ol { list-style: decimal; margin-left: 1.5rem; margin-bottom: 1rem; }
+  .prose-reverie li { margin-bottom: 0.25rem; }
+  .prose-reverie li > ul, .prose-reverie li > ol { margin-top: 0.25rem; margin-bottom: 0; }
+  .prose-reverie blockquote { border-left: 3px solid #059669; padding-left: 1rem; margin: 1rem 0; color: #a3a3a3; font-style: italic; }
+  .prose-reverie table { border-collapse: collapse; margin: 1rem 0; font-size: 0.9rem; width: 100%; }
+  .prose-reverie th, .prose-reverie td { border: 1px solid #262626; padding: 0.5rem 0.75rem; text-align: left; }
+  .prose-reverie th { background: #171717; color: #fafafa; font-weight: 600; }
+  .prose-reverie tr:nth-child(even) td { background: #0f0f0f; }
+  .prose-reverie hr { border: 0; border-top: 1px solid #262626; margin: 2rem 0; }
+  .prose-reverie img, .prose-reverie svg { max-width: 100%; height: auto; border-radius: 0.25rem; }
+  .prose-reverie strong { color: #fafafa; font-weight: 600; }
+</style>

@@ -4,19 +4,54 @@ import '../styles/global.css';
 interface Props {
   title: string;
   description?: string;
+  ogImage?: string;
 }
 
-const { title, description = 'Neuroscience-grounded tools for LLM coding harnesses.' } = Astro.props;
+const {
+  title,
+  description = 'Neuroscience-grounded tools for LLM coding harnesses — reverie memory daemon and meshctl multi-agent orchestration.',
+  ogImage = '/og.svg',
+} = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://cerebral.work').href;
+const ogUrl = new URL(ogImage, Astro.site ?? 'https://cerebral.work').href;
 ---
 <!doctype html>
 <html lang="en" class="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
     <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
-    <title>{title}</title>
+    <meta name="theme-color" content="#0a0a0a" />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="cerebral.work" />
+    <meta property="og:image" content={ogUrl} />
+    <meta property="og:image:alt" content="cerebral.work — neuroscience-grounded tools for LLM coding agents" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogUrl} />
+
+    <script type="application/ld+json" set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'Organization',
+      name: 'cerebral.work',
+      url: 'https://cerebral.work',
+      description,
+      sameAs: ['https://github.com/cerebral-work'],
+    })} />
+
+    <link rel="sitemap" href="/sitemap-index.xml" />
   </head>
   <body class="bg-neutral-950 text-neutral-100 font-mono antialiased min-h-screen">
     <header class="border-b border-neutral-800">
@@ -27,6 +62,7 @@ const { title, description = 'Neuroscience-grounded tools for LLM coding harness
         <ul class="flex gap-6 text-sm text-neutral-400">
           <li><a href="/reverie" class="hover:text-emerald-400 transition-colors">reverie</a></li>
           <li><a href="/meshctl" class="hover:text-emerald-400 transition-colors">meshctl</a></li>
+          <li><a href="/docs" class="hover:text-emerald-400 transition-colors">docs</a></li>
           <li><a href="https://github.com/cerebral-work" class="hover:text-emerald-400 transition-colors">github</a></li>
         </ul>
       </nav>
@@ -42,3 +78,10 @@ const { title, description = 'Neuroscience-grounded tools for LLM coding harness
     </footer>
   </body>
 </html>
+<style is:global>
+  /* heading anchor-link styling (rehype-autolink-headings) */
+  .heading-anchor { color: #3f3f46; margin-left: 0.4rem; text-decoration: none; font-weight: 400; opacity: 0; transition: opacity 0.15s, color 0.15s; }
+  h1:hover .heading-anchor, h2:hover .heading-anchor, h3:hover .heading-anchor, h4:hover .heading-anchor, h5:hover .heading-anchor, h6:hover .heading-anchor { opacity: 1; color: #10b981; }
+  .heading-anchor:hover { color: #6ee7b7 !important; opacity: 1 !important; }
+  html { scroll-behavior: smooth; scroll-padding-top: 1rem; }
+</style>

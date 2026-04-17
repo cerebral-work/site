@@ -24,6 +24,54 @@ import Layout from '../layouts/Layout.astro';
 
   <section class="mb-12">
     <h2 class="text-2xl font-semibold text-neutral-50 mb-4">The seven roles</h2>
+    <figure class="my-6">
+      <svg viewBox="0 0 720 420" class="w-full border border-neutral-800 rounded-lg bg-neutral-900 p-4">
+        <style>
+          .r-anchor  { fill: #0a0a0a; stroke: #6ee7b7; stroke-width: 2.5; }
+          .r-worker  { fill: #0a0a0a; stroke: #10b981; stroke-width: 1.5; }
+          .r-label   { font: 700 13px ui-monospace, monospace; fill: #fafafa; text-anchor: middle; }
+          .r-sub     { font: 10px ui-sans-serif, system-ui; fill: #a3a3a3; text-anchor: middle; }
+          .r-edge    { stroke: #065f46; stroke-width: 1.2; fill: none; stroke-dasharray: 3 3; }
+        </style>
+        <!-- anchor center -->
+        <circle class="r-anchor" cx="360" cy="210" r="52"/>
+        <text class="r-label" x="360" y="207">anchor</text>
+        <text class="r-sub"   x="360" y="224">opus</text>
+        <!-- six workers -->
+        <g>
+          <ellipse class="r-worker" cx="360" cy="60"  rx="78" ry="32"/>
+          <text class="r-label" x="360" y="58">builder</text>
+          <text class="r-sub"   x="360" y="75">sonnet · implements</text>
+          <line class="r-edge" x1="360" y1="92"  x2="360" y2="158"/>
+
+          <ellipse class="r-worker" cx="600" cy="130" rx="78" ry="32"/>
+          <text class="r-label" x="600" y="128">memory</text>
+          <text class="r-sub"   x="600" y="145">haiku · custodian</text>
+          <line class="r-edge" x1="535" y1="147" x2="410" y2="195"/>
+
+          <ellipse class="r-worker" cx="600" cy="290" rx="78" ry="32"/>
+          <text class="r-label" x="600" y="288">release</text>
+          <text class="r-sub"   x="600" y="305">sonnet · reviewer</text>
+          <line class="r-edge" x1="535" y1="273" x2="410" y2="225"/>
+
+          <ellipse class="r-worker" cx="360" cy="360" rx="78" ry="32"/>
+          <text class="r-label" x="360" y="358">research</text>
+          <text class="r-sub"   x="360" y="375">sonnet · explorer</text>
+          <line class="r-edge" x1="360" y1="328" x2="360" y2="262"/>
+
+          <ellipse class="r-worker" cx="120" cy="290" rx="78" ry="32"/>
+          <text class="r-label" x="120" y="288">security</text>
+          <text class="r-sub"   x="120" y="305">sonnet · auditor</text>
+          <line class="r-edge" x1="185" y1="273" x2="310" y2="225"/>
+
+          <ellipse class="r-worker" cx="120" cy="130" rx="78" ry="32"/>
+          <text class="r-label" x="120" y="128">steward</text>
+          <text class="r-sub"   x="120" y="145">haiku · groomer</text>
+          <line class="r-edge" x1="185" y1="147" x2="310" y2="195"/>
+        </g>
+      </svg>
+      <figcaption class="text-xs text-neutral-500 mt-2 text-center">Seven-role mesh — one anchor dispatching to six specialists.</figcaption>
+    </figure>
     <p class="text-neutral-300 leading-relaxed mb-6">
       A mesh has exactly one anchor and six specialist workers. Each role has its own
       capabilities, hard boundaries, and model tier — anchors use opus for orchestration,
@@ -83,7 +131,53 @@ import Layout from '../layouts/Layout.astro';
   </section>
 
   <section class="mb-12">
-    <h2 class="text-2xl font-semibold text-neutral-50 mb-4">Coordination primitives</h2>
+    <h2 class="text-2xl font-semibold text-neutral-50 mb-4">Task flow</h2>
+    <figure class="my-6">
+      <svg viewBox="0 0 720 180" class="w-full border border-neutral-800 rounded-lg bg-neutral-900 p-4">
+        <style>
+          .f-node { fill: #0a0a0a; stroke: #10b981; stroke-width: 1.5; rx: 6; }
+          .f-label { font: 600 12px ui-monospace, monospace; fill: #fafafa; text-anchor: middle; }
+          .f-sub   { font: 10px ui-sans-serif, system-ui; fill: #a3a3a3; text-anchor: middle; }
+          .f-arrow { stroke: #10b981; stroke-width: 1.5; fill: none; marker-end: url(#f-arr); }
+          .f-arrow-ret { stroke: #065f46; stroke-width: 1.3; fill: none; marker-end: url(#f-arr); stroke-dasharray: 3 3; }
+        </style>
+        <defs>
+          <marker id="f-arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker>
+        </defs>
+        <rect class="f-node" x="20"  y="60" width="120" height="60"/>
+        <text class="f-label" x="80"  y="88">anchor</text>
+        <text class="f-sub"   x="80"  y="104">dispatches</text>
+
+        <rect class="f-node" x="180" y="60" width="160" height="60"/>
+        <text class="f-label" x="260" y="83">Redis stream</text>
+        <text class="f-sub"   x="260" y="100">tasks:queue:default</text>
+        <text class="f-sub"   x="260" y="114">(XADD)</text>
+
+        <rect class="f-node" x="380" y="20" width="160" height="40"/>
+        <text class="f-label" x="460" y="45">builder-q1</text>
+        <rect class="f-node" x="380" y="70" width="160" height="40"/>
+        <text class="f-label" x="460" y="95">builder-q2</text>
+        <rect class="f-node" x="380" y="120" width="160" height="40"/>
+        <text class="f-label" x="460" y="145">builder-q3…</text>
+
+        <rect class="f-node" x="580" y="60" width="120" height="60"/>
+        <text class="f-label" x="640" y="83">tasks:results</text>
+        <text class="f-sub"   x="640" y="100">cherry-pick</text>
+        <text class="f-sub"   x="640" y="114">to main</text>
+
+        <path class="f-arrow" d="M140,90 L180,90"/>
+        <path class="f-arrow" d="M340,85 L380,40"/>
+        <path class="f-arrow" d="M340,90 L380,90"/>
+        <path class="f-arrow" d="M340,95 L380,140"/>
+        <path class="f-arrow" d="M540,40 L580,80"/>
+        <path class="f-arrow" d="M540,90 L580,90"/>
+        <path class="f-arrow" d="M540,140 L580,100"/>
+        <path class="f-arrow-ret" d="M640,120 Q 640,160 80,160 L80,120"/>
+      </svg>
+      <figcaption class="text-xs text-neutral-500 mt-2 text-center">Fan-out task flow — anchor XADDs to Redis stream; queue-drain workers XREADGROUP, build in isolated worktrees, post results; anchor cherry-picks to main.</figcaption>
+    </figure>
+
+    <h2 class="text-2xl font-semibold text-neutral-50 mb-4 mt-12">Coordination primitives</h2>
     <ul class="space-y-3 text-neutral-300">
       <li class="border-l-2 border-emerald-700 pl-4">
         <span class="text-emerald-400 font-semibold">coord</span>

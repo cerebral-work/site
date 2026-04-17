@@ -1,0 +1,52 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+
+const docs = await getCollection('docs');
+
+const groups = {
+  'Core architecture': [] as typeof docs,
+  'Mesh & coordination': [] as typeof docs,
+  'Design': [] as typeof docs,
+  'Research': [] as typeof docs,
+  'ADRs': [] as typeof docs,
+  'Meta': [] as typeof docs,
+};
+
+for (const d of docs) {
+  const slug = d.id;
+  if (slug.startsWith('architecture/adr-')) groups['ADRs'].push(d);
+  else if (slug.startsWith('architecture/')) groups['Core architecture'].push(d);
+  else if (slug.startsWith('coord/') || slug === 'coord-log-fanout') groups['Mesh & coordination'].push(d);
+  else if (slug.startsWith('design/')) groups['Design'].push(d);
+  else if (slug.startsWith('research/')) groups['Research'].push(d);
+  else if (['changelog', 'contributing', 'security'].includes(slug)) groups['Meta'].push(d);
+  else groups['Core architecture'].push(d);
+}
+
+const titleFor = (slug: string) => slug.split('/').pop()!.replace(/-/g, ' ').replace(/^\w/, c => c.toUpperCase());
+---
+<Layout title="docs — cerebral.work">
+  <nav class="text-sm text-neutral-500 mb-8">
+    <a href="/" class="hover:text-emerald-400">cerebral.work</a> / docs
+  </nav>
+  <h1 class="text-4xl font-bold tracking-tight text-neutral-50 mb-2">Documentation</h1>
+  <p class="text-neutral-400 mb-12">Architecture, research, and protocol specs for reverie and meshctl.</p>
+
+  {Object.entries(groups).filter(([,xs])=>xs.length>0).map(([group, items]) => (
+    <section class="mb-10">
+      <h2 class="text-sm uppercase tracking-wider text-emerald-400 mb-3">{group}</h2>
+      <ul class="divide-y divide-neutral-800 border border-neutral-800 rounded-lg">
+        {items.sort((a,b)=>a.id.localeCompare(b.id)).map(d => (
+          <li>
+            <a href={`/docs/${d.id}`} class="block px-4 py-3 hover:bg-neutral-900 transition-colors">
+              <div class="font-mono text-sm text-neutral-500">{d.id}</div>
+              <div class="text-neutral-100 mt-0.5">{d.data.title ?? titleFor(d.id)}</div>
+              {d.data.description && <div class="text-neutral-400 text-sm mt-1">{d.data.description}</div>}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </section>
+  ))}
+</Layout>

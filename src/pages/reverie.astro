@@ -41,6 +41,35 @@ import Layout from '../layouts/Layout.astro';
 
   <section class="mb-12">
     <h2 class="text-2xl font-semibold text-neutral-50 mb-4">Five-layer hierarchy</h2>
+    <figure class="my-6">
+      <svg viewBox="0 0 600 280" class="w-full border border-neutral-800 rounded-lg bg-neutral-900 p-4">
+        <style>
+          .lr-box { fill: #0a0a0a; stroke: #10b981; stroke-width: 1.5; }
+          .lr-label { font: 600 13px ui-monospace, monospace; fill: #fafafa; }
+          .lr-meta { font: 11px ui-sans-serif, system-ui; fill: #a3a3a3; }
+          .lr-arrow { fill: none; stroke: #065f46; stroke-width: 1.5; marker-end: url(#arr); }
+        </style>
+        <defs>
+          <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker>
+        </defs>
+        <rect class="lr-box" x="40" y="30" width="520" height="40" rx="6" style="opacity:0.95"/>
+        <text class="lr-label" x="60" y="55">L5 · Reference</text>
+        <text class="lr-meta" x="200" y="55">pointers to external systems — Linear, Obsidian, docs</text>
+        <rect class="lr-box" x="60" y="80" width="480" height="40" rx="6" style="opacity:0.95"/>
+        <text class="lr-label" x="80" y="105">L4 · Directive</text>
+        <text class="lr-meta" x="220" y="105">rules of engagement — CLAUDE.md, feedback, preferences</text>
+        <rect class="lr-box" x="80" y="130" width="440" height="40" rx="6" style="opacity:0.95"/>
+        <text class="lr-label" x="100" y="155">L3 · Semantic</text>
+        <text class="lr-meta" x="240" y="155">stable concepts + entities, cross-session</text>
+        <rect class="lr-box" x="100" y="180" width="400" height="40" rx="6" style="opacity:0.95"/>
+        <text class="lr-label" x="120" y="205">L2 · Consolidated</text>
+        <text class="lr-meta" x="260" y="205">deduplicated observations, promoted by signal</text>
+        <rect class="lr-box" x="120" y="230" width="360" height="40" rx="6" style="opacity:0.95"/>
+        <text class="lr-label" x="140" y="255">L1 · Episodic</text>
+        <text class="lr-meta" x="270" y="255">raw transcripts, tool calls, scratch</text>
+      </svg>
+      <figcaption class="text-xs text-neutral-500 mt-2 text-center">Five-layer memory hierarchy — wider tiers = higher volume, shorter half-life.</figcaption>
+    </figure>
     <p class="text-neutral-300 leading-relaxed mb-6">
       Reverie maps LLM knowledge onto five tiers, each with its own retention and access policy:
     </p>
@@ -70,6 +99,45 @@ import Layout from '../layouts/Layout.astro';
 
   <section class="mb-12">
     <h2 class="text-2xl font-semibold text-neutral-50 mb-4">Dream cycles</h2>
+    <figure class="my-6">
+      <svg viewBox="0 0 720 120" class="w-full border border-neutral-800 rounded-lg bg-neutral-900 p-4">
+        <style>
+          .ph-box { fill: #052e1e; stroke: #10b981; stroke-width: 1.5; }
+          .ph-label { font: 600 12px ui-monospace, monospace; fill: #6ee7b7; text-anchor: middle; }
+          .ph-sub { font: 10px ui-sans-serif, system-ui; fill: #a3a3a3; text-anchor: middle; }
+          .ph-arrow { stroke: #10b981; stroke-width: 1.5; fill: none; marker-end: url(#ph-arr); }
+        </style>
+        <defs>
+          <marker id="ph-arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker>
+        </defs>
+        <g>
+          <rect class="ph-box" x="10"  y="25" width="100" height="60" rx="6"/>
+          <text class="ph-label" x="60"  y="52">scan</text>
+          <text class="ph-sub"   x="60"  y="70">collect candidates</text>
+          <rect class="ph-box" x="128" y="25" width="100" height="60" rx="6"/>
+          <text class="ph-label" x="178" y="52">classify</text>
+          <text class="ph-sub"   x="178" y="70">assign type/kind</text>
+          <rect class="ph-box" x="246" y="25" width="100" height="60" rx="6"/>
+          <text class="ph-label" x="296" y="52">place</text>
+          <text class="ph-sub"   x="296" y="70">promote/demote</text>
+          <rect class="ph-box" x="364" y="25" width="100" height="60" rx="6"/>
+          <text class="ph-label" x="414" y="52">consolidate</text>
+          <text class="ph-sub"   x="414" y="70">merge near-dups</text>
+          <rect class="ph-box" x="482" y="25" width="100" height="60" rx="6"/>
+          <text class="ph-label" x="532" y="52">prune</text>
+          <text class="ph-sub"   x="532" y="70">drop low-signal</text>
+          <rect class="ph-box" x="600" y="25" width="100" height="60" rx="6"/>
+          <text class="ph-label" x="650" y="52">sync</text>
+          <text class="ph-sub"   x="650" y="70">mirror to external</text>
+          <path class="ph-arrow" d="M110,55 L128,55"/>
+          <path class="ph-arrow" d="M228,55 L246,55"/>
+          <path class="ph-arrow" d="M346,55 L364,55"/>
+          <path class="ph-arrow" d="M464,55 L482,55"/>
+          <path class="ph-arrow" d="M582,55 L600,55"/>
+        </g>
+      </svg>
+      <figcaption class="text-xs text-neutral-500 mt-2 text-center">Six-phase dream cycle — runs offline on a schedule (default 30 min min interval).</figcaption>
+    </figure>
     <p class="text-neutral-300 leading-relaxed mb-4">
       Offline, on a schedule, reverie runs the same six-phase pipeline a sleeping brain runs:
       scan → classify → place → consolidate → prune → sync. Near-duplicates merge, stale entries
