@@ -25,6 +25,9 @@ const ogUrl = new URL(ogImage, Astro.site ?? 'https://cerebral.work').href;
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
+    <link rel="apple-touch-icon" sizes="128x128" href="/apple-touch-icon.png" />
     <meta name="generator" content={Astro.generator} />
     <meta name="theme-color" content="#0a0a0a" />
     <meta name="robots" content="index, follow, max-image-preview:large" />
@@ -56,8 +59,9 @@ const ogUrl = new URL(ogImage, Astro.site ?? 'https://cerebral.work').href;
   <body class="bg-neutral-950 text-neutral-100 font-mono antialiased min-h-screen">
     <header class="border-b border-neutral-800">
       <nav class="max-w-4xl mx-auto px-6 py-4 flex items-center justify-between">
-        <a href="/" class="text-lg font-semibold tracking-tight text-neutral-50 hover:text-emerald-400 transition-colors">
-          cerebral.work
+        <a href="/" class="flex items-center gap-2.5 text-lg font-semibold tracking-tight text-neutral-50 hover:text-emerald-400 transition-colors">
+          <img src="/favicon.svg" alt="" width="28" height="28" class="rounded-sm" />
+          <span>cerebral<span class="text-yellow-500">.</span>work</span>
         </a>
         <ul class="flex gap-6 text-sm text-neutral-400">
           <li><a href="/reverie" class="hover:text-emerald-400 transition-colors">reverie</a></li>
