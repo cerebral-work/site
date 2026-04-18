@@ -9,7 +9,8 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "deploy": "astro build && wrangler pages deploy dist --project-name=cerebral-work --branch=main --commit-dirty=true"
   },
   "dependencies": {
     "@astrojs/mdx": "^5.0.3",
