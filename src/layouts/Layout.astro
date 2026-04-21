@@ -58,12 +58,12 @@ const ogUrl = new URL(ogImage, Astro.site ?? 'https://cerebral.work').href;
   </head>
   <body class="bg-neutral-950 text-neutral-100 font-mono antialiased min-h-screen">
     <header class="border-b border-neutral-800">
-      <nav class="max-w-4xl mx-auto px-6 py-4 flex items-center justify-between">
-        <a href="/" class="flex items-center gap-2.5 text-lg font-semibold tracking-tight text-neutral-50 hover:text-emerald-400 transition-colors">
+      <nav class="max-w-4xl mx-auto px-4 sm:px-6 py-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-6">
+        <a href="/" class="flex items-center gap-2.5 text-lg font-semibold tracking-tight text-neutral-50 hover:text-emerald-400 transition-colors shrink-0">
           <img src="/favicon.svg" alt="" width="28" height="28" class="rounded-sm" />
           <span>cerebral<span class="text-yellow-500">.</span>work</span>
         </a>
-        <ul class="flex gap-6 text-sm text-neutral-400">
+        <ul class="flex flex-wrap gap-x-5 gap-y-1 text-sm text-neutral-400">
           <li><a href="/reverie" class="hover:text-emerald-400 transition-colors">reverie</a></li>
           <li><a href="/meshctl" class="hover:text-emerald-400 transition-colors">meshctl</a></li>
           <li><a href="/docs" class="hover:text-emerald-400 transition-colors">docs</a></li>
